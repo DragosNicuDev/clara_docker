@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static from staticfiles %}
+{% load photos_uploaded crispy_forms_tags %}
+
+{% block content %}
+{% if request.META.HTTP_REFERER != 'http://localhost/' %}
+
+<div class="container vertical-centre">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+        <h2 style="text-align: center; color: #fff; text-shadow: 2px 2px 8px #003300;">
+        <strong>Loading app...</strong>
+        </h2>
+    
+        </div>
+    </div>
+</div>
+
+<script>
+
+  window.setTimeout(function () {
+    window.location.replace ("{% url 'home' %}");
+}, 1000); // redirect after 1 seconds.
+
+</script>
+
+{% else %}
+
+{% photos_up user.username %}
+
+{% endif %}
+
+{% endblock content %}

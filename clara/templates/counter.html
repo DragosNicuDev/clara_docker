@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container vertical-centre">
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1 class="centre-colour">
+                    {% if request.user.first_name %}
+                        {{ request.user.first_name }}
+                    {% else %}
+                        {{ request.user.username }}
+                    {% endif %} you can upload another photo anytime after:<br>
+                    
+                    <div id="clockdiv" class="centre-colour">
+                        <span class="hours"></span> Hours <span class="minutes"></span> minutes 
+                        <span class="seconds"></span> seconds
+                    </div>
+                </h1>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-8">
+                <p class="left-colour">
+                    *Note that you will also need to play again from the beginning in order to upload another photo
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+
+   window.setTimeout(function () {
+       window.location.replace ("{% url 'home' %}");
+    }, 5000); // redirect after 5 seconds.
+
+    function getTimeRemaining(endtime) {
+        var now = new Date('{% now "F d Y H:i:s" %}');
+        var t = Date.parse(endtime) - Date.parse(now);
+        var seconds = Math.floor((t / 1000) % 60);
+        var minutes = Math.floor((t / 1000 / 60) % 60);
+        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        return {
+            'total': t,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    };
+
+    function initializeClock(id, endtime) {
+        var clock = document.getElementById(id);
+        var hoursSpan = clock.querySelector('.hours');
+        var minutesSpan = clock.querySelector('.minutes');
+        var secondsSpan = clock.querySelector('.seconds');
+
+        function updateClock() {
+            var t = getTimeRemaining(endtime);
+            hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+            minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+            secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+            if (t.total <= 0) {
+                clearInterval(timeinterval);
+            };
+        }
+
+        updateClock();
+        var timeinterval = setTimeout(updateClock, 1000);
+    };
+
+    var deadline = '{{request.pause_upload|date:"F d Y H:i:s"}}';
+
+    initializeClock('clockdiv', deadline);
+
+</script>
+{% endblock content %}

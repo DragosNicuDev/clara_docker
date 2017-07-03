@@ -1,0 +1,33 @@
+{% load socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+{% for provider in socialaccount_providers %}
+    {% if provider.id == "openid" %}
+        {% for brand in provider.get_brands %}
+        <li>
+          <a title="{{brand.name}}" 
+             class="socialaccount_provider {{provider.id}} {{brand.id}}" 
+             href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+             >{{brand.name}}</a>
+        </li>
+        {% endfor %}
+    {% endif %}
+<div class="container vertical-centre">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+            <h1 class="text-center" style="text-align: center; color: #fff; text-shadow: 2px 2px 8px #003300;"><strong>Sign in with your Facebook account</strong></h1>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+          <!--Facebook login button -->
+            <a title="Sign in with Facebook"
+         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" class="btn btn-primary btn-lg center-block">
+             <h2 style="text-align: center; color: #fff; text-shadow: 2px 2px 8px #003300;"><i class="fa fa-facebook"></i> Sign in with Facebook</h2> </a>
+          <!-- end Facebook login button -->
+    </div>
+  </div>
+</div>
+{% endfor %}

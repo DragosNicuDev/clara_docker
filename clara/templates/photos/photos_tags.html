@@ -1,0 +1,129 @@
+{% load crispy_forms_tags elapsed %}
+{% load static from staticfiles %}
+
+{% for photo in photos %}
+    
+    <div class="container vertical-centre">
+
+        {% if not photo.pause_upload|elapsed:1 %}
+            
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="centre-colour">
+                        {% if photo.user.first_name %}{{ photo.user.first_name }}{% else %}{{ photo.user.username }}{% endif %} you can upload another photo anytime after:<br>
+                            <div id="clockdiv" class="centre-colour">
+    <span class="hours"></span> Hours <span class="minutes"></span> minutes 
+    <span class="seconds"></span> seconds
+</div>
+                    </h1>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="left-colour">
+                        *Note that you will also need to play again from the beginning in order to upload another photo
+                    </p>
+                </div>
+            </div>
+
+            <script>
+
+            window.setTimeout(function() {
+                window.location.replace ("{% url 'home' %}");
+            }, 5000); // redirect after 6 seconds.
+
+    function getTimeRemaining(endtime) {
+        var now = new Date('{% now "F d Y H:i:s" %}');
+        var t = Date.parse(endtime) - Date.parse(now);
+        var seconds = Math.floor((t / 1000) % 60);
+        var minutes = Math.floor((t / 1000 / 60) % 60);
+        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        return {
+            'total': t,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    };
+
+    function initializeClock(id, endtime) {
+        var clock = document.getElementById(id);
+        var hoursSpan = clock.querySelector('.hours');
+        var minutesSpan = clock.querySelector('.minutes');
+        var secondsSpan = clock.querySelector('.seconds');
+
+        function updateClock() {
+            var t = getTimeRemaining(endtime);
+            hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+            minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+            secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+            if (t.total <= 0) {
+                clearInterval(timeinterval);
+            };
+        };
+
+        updateClock();
+        var timeinterval = setInterval(updateClock, 1000);
+    };
+
+    var deadline = '{{photo.pause_upload|date:"F d Y H:i:s"}}';
+
+    initializeClock('clockdiv', deadline);
+
+</script>
+
+        {% else %}
+    
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="centre-colour">
+                        CONGRATULATIONS {% if photo.user.first_name %}{{ photo.user.first_name }}{% else %}{{ photo.user.username }}{% endif %}!!!
+                    </h1>
+                    <h2 class="centre-colour">
+                        You have managed to reach the end of our list of <span class="green-colour">SLIMY</span> photos!<br>
+                        You can now help us keep <span class="green-colour">sliming</span><br>by adding a <span class="green-colour">slime</span> of your own!
+                    </h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">  
+                    <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="form-group">
+                        {% crispy form %}
+                        </div>
+                    </form>
+                    <h4 class="centre-colour">or</h4>
+                    <a href="{% url 'home' %}" role="button" class="btn btn-primary btn-block">Start again</a>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'js/fileinput.min.js' %}"></script>
+
+    <script>
+
+    $("#upload-image").fileinput({
+        mainClass: "input-group-lg",
+        maxFileCount: 1,
+        maxFileSize: 1024,
+        resizeImage: true,
+        resizeIfSizeMoreThan: 50,
+        resizeImageQuality: 0.50,
+        showRemove: false,
+        browseClass: "btn btn-success",
+        browseLabel: "<b style='text-shadow: 2px 2px 8px #003300;'>Pick Slime</b>",
+        browseIcon: '<i class=\"glyphicon glyphicon-picture\" style="text-shadow: 2px 2px 8px #003300;"></i>',
+        uploadClass: "btn btn-info",
+        uploadLabel: "<b style='text-shadow: 2px 2px 8px #003300;'>Upload</b>",
+        uploadIcon: '<i class=\"glyphicon glyphicon-upload\" style="text-shadow: 2px 2px 8px #003300;"></i>'
+    });
+
+    </script>
+{% endfor %}

@@ -58,8 +58,14 @@ body {
     text-shadow: 2px 2px 8px #003300;
 }
 
+.other-buttons {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
 .green-colour {
     color:#003300;
+    font-weight:bold;
     text-shadow: 2px 2px 8px #fff;
 }
 

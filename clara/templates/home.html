@@ -23,6 +23,19 @@
 
     {% endif %}
 {% else %}
+
+<div class="modal fade" id="myModal">
+  <div class="modal-body vertical-centre">
+    <h4 class="other-buttons centre-colour">To get the full experience of the challenge the photos will be displayed in fullscreen view.</h4>
+    <h4 class="other-buttons centre-colour">After going through all the photos the fullscreen view will automatically exit.</h4>
+    <div class="col-md-2 col-md-offset-5">
+      <a href="/" role="button" class="btn btn-primary btn-block" onclick="requestFullScreen()" data-dismiss="modal">
+          <h5 class="centre-colour other-buttons">OK</h5>
+      </a>
+    </div>
+  </div>
+</div>
+
     <!-- Full Page Image Background Carousel Header -->
     <div id="ClarasSlimyPics" class="carousel slide carousel-container" data-interval="false" data-wrap="false" data-keyboard="false">
         <!-- Wrapper for Slides -->
@@ -47,6 +60,44 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="{% static 'js/jquery.mobile.custom.js' %}"></script>
 
+<script type="text/javascript">
+    // $(window).on('load',function(){
+    //     $('#myModal').modal('show');
+    // });
+    $(document).ready(function(){
+
+        $("#myModal").modal('show');
+
+    });
+</script>
+
+<script type="text/javascript">
+  
+  function requestFullScreen() {
+
+  var el = document.body;
+
+  // Supports most browsers and their versions.
+  var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen 
+  || el.mozRequestFullScreen || el.msRequestFullScreen;
+
+  if (requestMethod) {
+
+    // Native full screen.
+    requestMethod.call(el);
+
+  } else if (typeof window.ActiveXObject !== "undefined") {
+
+    // Older IE.
+    var wscript = new ActiveXObject("WScript.Shell");
+
+    if (wscript !== null) {
+      wscript.SendKeys("{F11}");
+    }
+  }
+}
+
+</script>
 <script type="text/javascript">
 
     $('#ClarasSlimyPics').on('slid.bs.carousel', '', checkitem);  // on caroussel move

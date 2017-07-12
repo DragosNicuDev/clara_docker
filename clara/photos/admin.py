@@ -14,11 +14,9 @@ class PhotoUploadAdmin(admin.ModelAdmin):
         'date_upload',
         'date_approved',
         'date_deleted',
-        'user',
-        'pause_upload')
+        'user',)
     list_display = (
         'image_tag',
-        'pause_upload',
         'user',
         'status',
         'date_upload',
@@ -28,7 +26,10 @@ class PhotoUploadAdmin(admin.ModelAdmin):
         'image_tag',
         'date_upload',
         'date_approved',
-        'date_deleted')
+        'date_deleted',)
+    list_select_related = (
+        'user',
+    )
     list_filter = ('status', 'user')
     actions = ['make_published', 'soft_delete']
     # Rename delete selected

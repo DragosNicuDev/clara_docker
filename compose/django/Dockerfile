@@ -24,6 +24,8 @@ RUN chown -R django /app
 
 USER django
 
+VOLUME /app/clara/media_uploaded
+
 WORKDIR /app
 
 ENTRYPOINT ["/entrypoint.sh"]

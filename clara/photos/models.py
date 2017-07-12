@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from django.conf import settings
+#from django.conf import settings
 
 
 # Admin option to select from
@@ -46,10 +46,7 @@ class PhotoUpload(models.Model):
     def path_and_rename(instance, filename):
         extension = filename.split('.')[-1]
         if User.is_authenticated:
-            # print(instance._user.username)
-            return 'uploads/{}-{}.{}'.format(instance.user.username,
-                                             instance.date_upload,
-                                             extension)
+            return 'uploads/{}.{}'.format(instance.date_upload, extension)
         else:
             return 'uploads/{}.{}'.format(instance.date_upload, extension)
 

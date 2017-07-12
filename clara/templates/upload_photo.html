@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static from staticfiles %}
-{% load photos_uploaded crispy_forms_tags %}
+{% load photos_uploaded elapsed crispy_forms_tags %}
 
 {% block content %}
 {% if request.META.HTTP_REFERER != 'http://localhost/' %}
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
-        <h2 style="text-align: center; color: #fff; text-shadow: 2px 2px 8px #003300;">
+        <h2 class="centre-colour">
         <strong>Loading app...</strong>
         </h2>
     

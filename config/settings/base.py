@@ -12,6 +12,11 @@ import environ
 ROOT_DIR = environ.Path(__file__) - 3  # (clara/config/settings/base.py - 3 = clara/)
 APPS_DIR = ROOT_DIR.path('clara')
 
+# MEDIA CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = str(APPS_DIR('media_uploaded'))
+
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
 
@@ -191,12 +196,6 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
-
-# MEDIA CONFIGURATION
-# ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR('media'))
-#MEDIA_ROOT = '/var/www/media'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'

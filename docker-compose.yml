@@ -3,6 +3,7 @@ version: '2'
 volumes:
   postgres_data: {}
   postgres_backup: {}
+  media_holder: {}
 
 services:
   postgres:
@@ -19,6 +20,9 @@ services:
     depends_on:
       - postgres
       - redis
+    volumes:
+      - media_holder:/app/clara/media_uploaded
+
     command: /gunicorn.sh
     env_file: .env
 
@@ -32,4 +36,3 @@ services:
 
   redis:
     image: redis:3.2.9-alpine
-

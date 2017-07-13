@@ -20,6 +20,7 @@ class PhotoUploadForm(forms.ModelForm):
                   css_class='file',
                   id='upload-image',
                   data_allowed_file_extensions='["jpg", "jpeg", "png", "gif"]',
+                  data_allowed_file_types='["image"]',
                   data_show_preview='false',
                   )
         )

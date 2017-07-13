@@ -89,7 +89,8 @@
             </div>
 
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">  
+                <div class="col-md-8 col-md-offset-2"> 
+
                     <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                         <div class="form-group">
@@ -102,6 +103,7 @@
             </div>
 
         {% endif %}
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -113,8 +115,12 @@
         mainClass: "input-group-lg other-buttons",
         maxFileCount: 1,
         maxFileSize: 1024,
+        // msgSizeTooLarge: 'The slime exceeds maximum allowed upload size of 1024 KB.',
         showRemove: false,
-        msgNoFilesSelected: 'Please pick an image file',
+        // allowedFileTypes: "'image'",
+        // allowedFileExtensions: '"jpg", "jpeg", "png", "gif"',
+        // msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
+        msgNoFilesSelected: 'Select an image of max 1MB',
         browseClass: "btn btn-success",
         browseLabel: "<b style='text-shadow: 2px 2px 8px #003300;' class='other-buttons'>Pick Slime</b>",
         browseIcon: '<i class=\"glyphicon glyphicon-picture\" style="text-shadow: 2px 2px 8px #003300;"></i>',

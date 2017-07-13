@@ -8,8 +8,11 @@ from django.views import defaults as default_views
 from carousel.views import CarouselView
 from photos.views import PhotoUploadCreate
 
+admin.site.site_header = "Clara's Slimy Pics"
+admin.site.site_title = "Clara's Slimy Pics"
+
 urlpatterns = [
-     url(r'^$', CarouselView.as_view(), name='home'),
+    url(r'^$', CarouselView.as_view(), name='home'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^upload/$',

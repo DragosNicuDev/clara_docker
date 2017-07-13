@@ -31,9 +31,7 @@ class PhotoUploadAdmin(admin.ModelAdmin):
         'user',
     )
     list_filter = ('status', 'user')
-    actions = ['make_published', 'soft_delete']
-    # Rename delete selected
-    delete_selected.short_description = "Permanently delete selected"
+    actions = ['make_published', 'soft_delete', 'delete_selected']
 
     # Admin action
     def make_published(self, request, queryset):
@@ -51,6 +49,9 @@ class PhotoUploadAdmin(admin.ModelAdmin):
         date_delete = timezone.now()
         queryset.update(date_deleted=date_delete)
     soft_delete.short_description = "Move to Trash"
+
+    # Rename delete selected
+    delete_selected.short_description = "Permanently delete selected"
 
     # Admin thumbnail view
     def image_tag(self, obj):

@@ -2,8 +2,8 @@
 {% load tz %}
 
 {% block content %}
-
-    {% if request.META.HTTP_REFERER == 'http://localhost/upload/' %}
+{% with 'http://'|add:request.META.HTTP_HOST|add:'/upload/' as host %}
+    {% if request.META.HTTP_REFERER == host %}
 
         {% include 'navigation.html' %}
 
@@ -62,4 +62,5 @@
         </script>
 
     {% endif %}
+{% endwith %}
 {% endblock content %}

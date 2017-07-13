@@ -61,13 +61,8 @@
 <script src="{% static 'js/jquery.mobile.custom.js' %}"></script>
 
 <script type="text/javascript">
-    // $(window).on('load',function(){
-    //     $('#myModal').modal('show');
-    // });
     $(document).ready(function(){
-
         $("#myModal").modal('show');
-
     });
 </script>
 
@@ -75,7 +70,7 @@
   
   function requestFullScreen() {
 
-  var el = document.body;
+  var el = document.documentElement;
 
   // Supports most browsers and their versions.
   var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen 

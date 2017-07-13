@@ -4,14 +4,15 @@
 {% load photos_uploaded elapsed crispy_forms_tags %}
 
 {% block content %}
-{% if request.META.HTTP_REFERER != 'http://localhost/' %}
+{% with 'http://'|add:request.META.HTTP_HOST|add:'/' as host %}
+{% if request.META.HTTP_REFERER != host %}
 
 <div class="container vertical-centre">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
         <h2 class="centre-colour">
-        <strong>Loading app...</strong>
+        <strong>Loading app...</strong><br>
         </h2>
     
         </div>
@@ -28,8 +29,10 @@
 
 {% else %}
 
-{% photos_up user.username %}
+{% photos_up request.user.username %}
 
 {% endif %}
+
+{% endwith %}
 
 {% endblock content %}

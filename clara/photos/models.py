@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-#from django.conf import settings
 
 
 # Admin option to select from
@@ -16,7 +15,7 @@ PHOTO_STATUS = (
 
 
 def pause():
-    return timezone.now() + timezone.timedelta(minutes=5)
+    return timezone.now() + timezone.timedelta(days=1)
 
 
 # Main photo upload app

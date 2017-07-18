@@ -9,26 +9,18 @@
 
     {% if socialaccount_providers %}
 
-    <div class="socialaccount_ballot">
+      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
 
-      <ul class="socialaccount_providers">
-      <li>
-        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-      </li>
-      </ul>
-
-    </div>
-
-    {% include "socialaccount/snippets/login_extra.html" %}
+      {% include "socialaccount/snippets/login_extra.html" %}
 
     {% endif %}
 {% else %}
 
 <div class="modal fade" id="myModal">
   <div class="modal-body vertical-centre">
-    <h4 class="other-buttons centre-colour">To get the full experience of the challenge the photos will be displayed in fullscreen view.</h4>
-    <h4 class="other-buttons centre-colour">After going through all the photos the fullscreen view will automatically exit.</h4>
-    <div class="col-md-2 col-md-offset-5">
+    <h4 class="other-buttons centre-colour">To get the full experience of the challenge the photos will be displayed in fullscreen view.<br><br>
+    After going through all the photos the fullscreen view will automatically exit.</h4>
+    <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4">
       <a href="/" role="button" class="btn btn-primary btn-block" onclick="requestFullScreen()" data-dismiss="modal">
           <h5 class="centre-colour other-buttons">OK</h5>
       </a>
@@ -39,13 +31,11 @@
     <!-- Full Page Image Background Carousel Header -->
     <div id="ClarasSlimyPics" class="carousel slide carousel-container" data-interval="false" data-wrap="false" data-keyboard="false">
         <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
+        <div class="carousel-inner" style="position:relative;">
             {% for photo in photos %}
             <div class="item {% if forloop.first %}active{% endif %}">
                 <!-- Set the first background image using inline CSS below. -->
-                <div class="fill">
                     <img src="{{ photo.image.url }}" class="img-responsive vertical-centre">
-                </div>
             </div>
             {% endfor %}
         </div>

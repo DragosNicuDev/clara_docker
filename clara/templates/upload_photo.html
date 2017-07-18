@@ -1,36 +1,34 @@
 {% extends 'base.html' %}
 
-{% load static from staticfiles %}
-{% load photos_uploaded elapsed crispy_forms_tags %}
+{% load photos_uploaded elapsed crispy_forms_tags static %}
 
 {% block content %}
-{% with 'http://'|add:request.META.HTTP_HOST|add:'/' as host %}
-{% if request.META.HTTP_REFERER != host %}
+    <div class="container vertical-centre">
+        
+        {% with 'http://'|add:request.META.HTTP_HOST|add:'/' as host %}
+        
+            {% if request.META.HTTP_REFERER != host %}
 
-<div class="container vertical-centre">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h2 class="centre-colour">
-                <strong>Loading app...</strong><br>
-            </h2>
-        </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h2 class="centre-colour">
+                            <strong>Loading app...</strong><br>
+                        </h2>
+                    </div>
+                </div>
+        
+                <script>
+                    window.setTimeout(function () {
+                    window.location.replace ("{% url 'home' %}");
+                    }, 1000); // redirect after 1 seconds.
+                </script>
+
+            {% else %}
+
+                {% photos_up request.user.username %}
+
+            {% endif %}
+
+        {% endwith %}
     </div>
-</div>
-
-<script>
-
-  window.setTimeout(function () {
-    window.location.replace ("{% url 'home' %}");
-}, 1000); // redirect after 1 seconds.
-
-</script>
-
-{% else %}
-
-{% photos_up request.user.username %}
-
-{% endif %}
-
-{% endwith %}
-
 {% endblock content %}

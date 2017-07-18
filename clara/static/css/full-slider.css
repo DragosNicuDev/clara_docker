@@ -9,6 +9,28 @@ body {
     height: 100%;
     font-family: 'Indie Flower', cursive;
 }
+/*
+@media(max-width:500px){
+    .container {
+        width: 470px;
+    }
+}*/
+
+@media(max-width:767px){
+
+    h1 {
+        font-size: 30px;
+    }
+    h2 {
+        font-size: 24px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+    h4 {
+        font-size: 12px;
+    }
+}
 
 .carousel,
 .item,

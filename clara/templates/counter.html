@@ -11,6 +11,8 @@
                     {% else %}
                         {{ request.user.username }}
                     {% endif %} you can upload another photo anytime after:<br>
+                    <br>
+                    {{request.pause_upload|date:"F d Y H:i:s"}}
                     
                     <div id="clockdiv" class="centre-colour">
                         <span class="hours"></span> Hours <span class="minutes"></span> minutes 

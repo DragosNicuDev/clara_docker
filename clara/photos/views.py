@@ -9,7 +9,7 @@ from .models import PhotoUpload
 class PhotoUploadCreate(CreateView):
     model = PhotoUpload
     form_class = PhotoUploadForm
-    template_name = 'upload_photo.html'
+    # template_name = 'upload_photo.html'
 
     def get_template_names(self):
         check_object = PhotoUpload.objects.filter(
@@ -52,6 +52,13 @@ class PhotoUploadCreate(CreateView):
 
             else:
                 return render(self.request, 'counter.html')
+
+    def get_context_data(self, **kwargs):
+        context = super(PhotoUploadCreate, self).get_context_data(**kwargs)
+        context['photo'] = PhotoUpload.objects.filter(
+            user=self.request.user
+        ).order_by('-pause_upload')
+        return context
 
     def get_success_url(self):
         return reverse('success')

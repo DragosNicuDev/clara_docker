@@ -4,7 +4,7 @@
     <div class="container vertical-centre">
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
                 <h1 class="centre-colour">
                     {% if request.user.first_name %}
                         {{ request.user.first_name }}
@@ -13,14 +13,14 @@
                     {% endif %} you can upload another photo anytime after:<br>
                     <div id="clockdiv" class="centre-colour">
                         <span class="hours"></span> Hours <span class="minutes"></span> minutes 
-                        <span class="seconds"></span> seconds
+                        <span class="seconds"></span> seconds<br>
                     </div>
                 </h1>
             </div>
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 col-sm-12 col-xs-12">
                 <p class="left-colour">
                     *Note that you will also need to play again from the beginning in order to upload another photo
                 </p>
@@ -71,8 +71,8 @@
         var timeinterval = setInterval(updateClock, 1000);
     };
     
-    var deadline = '{% for p in photo %}{{ p.pause_upload|date:"F d Y H:i:s" }}{% endfor %}';
-    
+    var deadline = '{{ photo.pause_upload|date:"F d Y H:i:s" }}';
+
     initializeClock('clockdiv', deadline);
 
 </script>

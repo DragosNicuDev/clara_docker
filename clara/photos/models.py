@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from imagekit.models import ProcessedImageField
 
 
 # Admin option to select from
@@ -51,15 +52,17 @@ class PhotoUpload(models.Model):
 
     # Application side file size check
     def file_size(value):
-        limit = 2 * 1024 * 1024
+        limit = 5 * 1024 * 1024
         if value.size > limit:
             raise ValidationError(
-                'File too large. Size should not exceed 2 MB.')
+                'File too large. Size should not exceed 5 MB.')
 
-    image = models.ImageField(upload_to=path_and_rename,
-                              validators=[file_size],
-                              null=True,
-                              blank=True)
+    image = ProcessedImageField(upload_to=path_and_rename,
+                                validators=[file_size],
+                                format='jpeg',
+                                options={'quality': 80},
+                                null=True,
+                                blank=True)
 
     def __str__(self):
         return str(self.pause_upload)

@@ -57,7 +57,7 @@ class PhotoUploadCreate(CreateView):
         context = super(PhotoUploadCreate, self).get_context_data(**kwargs)
         context['photo'] = PhotoUpload.objects.filter(
             user=self.request.user
-        ).latest('pause_upload')
+        ).order_by('-pause_upload')
         return context
 
     def get_success_url(self):

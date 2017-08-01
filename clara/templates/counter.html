@@ -70,9 +70,11 @@
         updateClock();
         var timeinterval = setInterval(updateClock, 1000);
     };
-    
-    var deadline = '{{ photo.pause_upload|date:"F d Y H:i:s" }}';
-
+    {% for p in photo %}
+        {% if forloop.first %}
+        var deadline = '{{ p.pause_upload|date:"F d Y H:i:s" }}';
+        {% endif %}
+    {% endfor %}
     initializeClock('clockdiv', deadline);
 
 </script>
